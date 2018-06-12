@@ -9,6 +9,8 @@ import ScrollTypes, { getScrollNames, getScrollValues } from './ScrollTypes'
 import OrdenationTypes, { getOrdenationNames, getOrdenationValues } from './OrdenationTypes'
 import VTEXClasses from './CustomClasses'
 
+import { FormattedMessage } from 'react-intl'
+
 import productsQuery from './queries/productsQuery.gql'
 
 import './global.css'
@@ -20,11 +22,27 @@ const DEFAULT_ITEMS_PER_PAGE = 5
  * Shelf Component. Shows a collection of products.
  */
 class Shelf extends Component {
+  static getCustomMessages(locale) {
+    const myMessages = {
+      "pt-BR": {
+        "aaa": "portugues",
+        "aab": "ainda portugues"
+      },
+      "en-US": {
+        "aaa": "english",
+        "aab": "still english"
+      }
+    }
+    return myMessages[locale]
+  }
+
   render() {
     const { data, maxItems, titleText, arrows, scroll, itemsPerPage, summary } = this.props
     const products = !data || data['error'] ? [] : data.products
     return (
       <div className={`${VTEXClasses.MAIN_CLASS} ml7 mr7 pv4 pb7`}>
+        <p><FormattedMessage id="aaa"/></p>
+        <p><FormattedMessage id="appframe.billing"/></p>
         <div className={`${VTEXClasses.TITLE_CONTENT_CLASS} w-100 flex justify-center`}>
           <h1 className={VTEXClasses.TITLE_TEXT_CLASS}> {titleText}</h1>
         </div>
