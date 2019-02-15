@@ -2,12 +2,17 @@ import './global.css'
 
 import PropTypes from 'prop-types'
 import { identity, path } from 'ramda'
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import ProductSummary from 'vtex.product-summary/index'
 import { FormattedMessage } from 'react-intl'
+import ReactResizeDetector from 'react-resize-detector'
 import { productListSchemaPropTypes } from './propTypes'
 import ScrollTypes, { getScrollNames, getScrollValues } from './ScrollTypes'
+import GapPaddingTypes, { getGapPaddingNames, getGapPaddingValues } from './paddingEnum'
 import ShelfContent from './ShelfContent'
+import ShelfItem from './ShelfItem'
+
+import shelf from './shelf.css'
 
 const DEFAULT_MAX_ITEMS = 10
 const DEFAULT_ITEMS_PER_PAGE = 5
@@ -44,7 +49,7 @@ function getBuyableSellers(sellers) {
 /**
  * Product List Component. Shows a collection of products.
  */
-export default class ProductList extends Component {
+class ProductList extends Component {
   render() {
     const {
       products,
@@ -55,26 +60,35 @@ export default class ProductList extends Component {
       itemsPerPage,
       summary,
       isMobile,
+      gap,
     } = this.props
 
     const filteredProducts =
       products && products.map(normalizeBuyable).filter(identity)
 
     return products && !products.length ? null : (
-      <div className="vtex-page-padding pv4 pb9">
-        <div className="vtex-shelf__title t-heading-2 fw3 w-100 flex justify-center pt7 pb6 c-muted-1">
+      <Fragment>
+        <div className={`${shelf.title} t-heading-2 fw3 w-100 flex justify-center pt7 pb6 c-muted-1`}>
           {titleText || <FormattedMessage id="shelf.title" />}
         </div>
-        <ShelfContent
-          products={filteredProducts}
-          maxItems={maxItems}
-          arrows={arrows}
-          scroll={scroll}
-          itemsPerPage={itemsPerPage}
-          summary={summary}
-          isMobile={isMobile}
-        />
-      </div>
+        <ReactResizeDetector handleWidth handleHeight>
+          {
+            width => (
+              <ShelfContent
+                products={filteredProducts}
+                maxItems={maxItems}
+                arrows={arrows}
+                scroll={scroll}
+                itemsPerPage={itemsPerPage}
+                summary={summary}
+                isMobile={isMobile}
+                width={width}
+                gap={gap}
+              />
+            )
+          }
+        </ReactResizeDetector>
+      </Fragment>
     )
   }
 }
@@ -89,6 +103,14 @@ ProductList.getSchema = props => {
         title: 'editor.shelf.maxItems.title',
         type: 'number',
         default: ProductList.defaultProps.maxItems,
+        isLayout: true,
+      },
+      gap: {
+        title: 'editor.shelf.gap.title',
+        type: 'string',
+        enum: getGapPaddingValues(),
+        enumNames: getGapPaddingNames(),
+        default: GapPaddingTypes.SMALL.value,
         isLayout: true,
       },
       itemsPerPage: {
@@ -122,7 +144,7 @@ ProductList.getSchema = props => {
         title: 'editor.shelf.summary.title',
         type: 'object',
         properties: ProductSummary.getSchema(props).properties,
-      }
+      },
     },
   }
 }
@@ -131,6 +153,7 @@ ProductList.defaultProps = {
   maxItems: DEFAULT_MAX_ITEMS,
   itemsPerPage: DEFAULT_ITEMS_PER_PAGE,
   scroll: ScrollTypes.BY_PAGE.value,
+  gap: GapPaddingTypes.SMALL.value,
   arrows: true,
   titleText: null,
   isMobile: false,
@@ -140,8 +163,10 @@ ProductList.propTypes = {
   /** Loading status */
   loading: PropTypes.bool,
   /** Graphql data response. */
-  products: ShelfContent.propTypes.products,
+  products: PropTypes.arrayOf(ShelfItem.propTypes.item),
   /** Verifies if is a mobile device. */
   isMobile: PropTypes.bool,
   ...productListSchemaPropTypes,
 }
+
+export default ProductList

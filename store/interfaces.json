@@ -1,0 +1,8 @@
+{
+  "shelf": {
+    "component": "Shelf"
+  },
+  "related-products": {
+    "component": "RelatedProducts"
+  }
+}

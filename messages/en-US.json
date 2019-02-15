@@ -6,6 +6,7 @@
   "editor.shelf.orderBy.title": "List Ordenation",
   "editor.shelf.maxItems.title": "Max Items",
   "editor.shelf.itemsPerPage.title": "Items Per Page (web)",
+  "editor.shelf.gap.title": "Gap between Items",
   "editor.shelf.scrollType.title": "Scroll Type",
   "editor.shelf.arrows.title": "Arrows (web)",
   "editor.shelf.titleText.title": "Title Text",

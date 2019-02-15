@@ -1,15 +1,20 @@
-import './global.css'
 
 import PropTypes from 'prop-types'
 import { path } from 'ramda'
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { withRuntimeContext } from 'render'
+import { withRuntimeContext } from 'vtex.render-runtime'
+
+import Container from 'vtex.store-components/Container'
+
 import OrdenationTypes, { getOrdenationNames, getOrdenationValues } from './OrdenationTypes'
 import ProductList from './ProductList'
 import { productListSchemaPropTypes } from './propTypes'
 import productsQuery from './queries/productsQuery.gql'
 import ShelfContent from './ShelfContent'
+
+import shelf from './shelf.css'
+import './global.css'
 
 /**
  * Shelf Component. Queries a list of products and shows them.
@@ -29,13 +34,12 @@ class Shelf extends Component {
       isMobile: runtime.hints.mobile,
       ...productList,
     }
-    
+
     if (data.error || data.loading) {
       return null
     }
-
     return (
-      <div className="vtex-shelf">
+      <div className={`${shelf.container} vtex-shelf pv4 pb9`}>
         <ProductList {...productListProps} />
       </div>
     )

@@ -9,6 +9,63 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Storefront label names when option is only for web devices.
 
+## [1.6.0] - 2019-02-15
+### Added 
+- Support to CSS Modules.
+
+## [1.5.8] - 2019-02-14
+### Changed
+- `Shelf` use full width when `itemsPerPage` are five or more and padding between items is set using tachyons.
+
+## [1.5.7] - 2019-02-14
+### Fixed
+- Fix summary.name prop undefined when setting name tag. 
+
+## [1.5.6] - 2019-02-13
+### Changed
+- Set `ProductName` tag as H2 element.
+
+## [1.5.5] - 2019-02-11
+### Fixed
+- Align `ShelfItems` height.
+
+## [1.5.4] - 2019-02-11
+### Changed
+- Change Responsiveness implementation and add fixed gap between item.
+
+## [1.5.3] - 2019-02-05
+### Changed
+- Bumping version to use new messages 1.x builder
+
+## [1.5.2] - 2019-01-29
+### Fixed
+- Remove `inheritComponent` from blocks.
+
+## [1.5.1] - 2019-01-23
+
+## [1.5.0] - 2019-01-23
+
+## [1.4.0] - 2019-01-18
+### Changed
+- Update React builder to 3.x.
+
+## [1.3.3] - 2019-01-14
+### Fixed
+- Change Slider CSS tokens. 
+
+## [1.3.2] - 2019-01-14
+### Fixed
+- Related products alignment.
+
+## [1.3.1] - 2019-01-11
+### Fixed
+- Add max-width on shelf Container.
+
+## [1.3.0] - 2019-01-09
+### Changed
+- Add padding on shelf through `Container` component.
+- Bye `pages.json`! Welcome `store-builder`.
+
 ## [1.2.0] - 2018-12-20
 ### Added
 - Support to messages builder.
